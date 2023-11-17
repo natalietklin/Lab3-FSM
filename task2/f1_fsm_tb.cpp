@@ -38,7 +38,7 @@ int main(int argc, char **argv, char **env) {
         }
 
         vbdSetMode(1); // step through the random sequence each time the switch is pressed
-        top->rst = 0; // start updating next_state
+        top->rst = (simcyc < 2); // assert reset for 1st cycle
         top->en = vbdFlag(); // change en with rotary encoder switch
         vbdHex(1, top->out & 0xF); // show first 4 (LS) bits of 8 bit output as the first digit
         vbdHex(2, (top->out >> 4) & 0xF); // show last 4 (MS) bits as the second digit
