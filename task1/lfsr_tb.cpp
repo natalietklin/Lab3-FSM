@@ -21,6 +21,7 @@ int main(int argc, char **argv, char **env) {
     // init Vbuddy
     if (vbdOpen()!=1) return(-1);
     vbdHeader("L3T1: LFSR");
+    vbdSetMode(1); // step through the random sequence each time the switch is pressed
 
     // initialise simulation inputs
     top->clk = 1;
@@ -37,7 +38,6 @@ int main(int argc, char **argv, char **env) {
             top->eval ();
         }
 
-        vbdSetMode(1); // step through the random sequence each time the switch is pressed
         top->rst = 0; // start updating the shift register
         top->en = vbdFlag(); // change en with rotary encoder switch
         vbdHex(1, top->data_out & 0xF); // show 4-bit output of random sequence

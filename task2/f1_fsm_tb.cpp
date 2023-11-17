@@ -21,6 +21,7 @@ int main(int argc, char **argv, char **env) {
     // init Vbuddy
     if (vbdOpen()!=1) return(-1);
     vbdHeader("L3T2: F1_FSM");
+    vbdSetMode(1); // step through the random sequence each time the switch is pressed
 
     // initialise simulation inputs
     top->clk = 1;
@@ -37,7 +38,6 @@ int main(int argc, char **argv, char **env) {
             top->eval ();
         }
 
-        vbdSetMode(1); // step through the random sequence each time the switch is pressed
         top->rst = (simcyc < 2); // assert reset for 1st cycle
         top->en = vbdFlag(); // change en with rotary encoder switch
         vbdHex(1, top->out & 0xF); // show first 4 (LS) bits of 8 bit output as the first digit
